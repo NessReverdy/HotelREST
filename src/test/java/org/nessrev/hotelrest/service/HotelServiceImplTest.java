@@ -13,6 +13,7 @@ import org.nessrev.hotelrest.dto.HotelFullInfo;
 import org.nessrev.hotelrest.dto.HotelShortInfo;
 import org.nessrev.hotelrest.entity.*;
 import org.nessrev.hotelrest.repo.HotelRepository;
+import org.nessrev.hotelrest.service.utils.TestDataHelper;
 import org.nessrev.hotelrest.utils.AmenityHelper;
 import org.nessrev.hotelrest.utils.HistogramQueryHelper;
 import org.springframework.data.jpa.domain.Specification;
@@ -39,27 +40,8 @@ public class HotelServiceImplTest {
 
     @Test
     public void getAllHotels_success() {
-        HotelEntity hotel1 = new HotelEntity();
-        hotel1.setId(1L);
-        hotel1.setName("Hotel A");
-        AddressEntity address1 = new AddressEntity();
-        address1.setHouseNumber(10);
-        address1.setCity("Minsk");
-        hotel1.setAddress(address1);
-        ContactsEntity contacts1 = new ContactsEntity();
-        contacts1.setPhone("+375291234567");
-        hotel1.setContacts(contacts1);
-
-        HotelEntity hotel2 = new HotelEntity();
-        hotel2.setId(2L);
-        hotel2.setName("Hotel B");
-        AddressEntity address2 = new AddressEntity();
-        address2.setHouseNumber(20);
-        address2.setCity("Gomel");
-        hotel2.setAddress(address2);
-        ContactsEntity contacts2 = new ContactsEntity();
-        contacts2.setPhone("+375291112233");
-        hotel2.setContacts(contacts2);
+        HotelEntity hotel1 = TestDataHelper.createSortHotelInfo(1L, "Hotel A", 10, "Minsk", "+375291234567");
+        HotelEntity hotel2 = TestDataHelper.createSortHotelInfo(2L, "Hotel B", 20, "Gomel", "+375291112233");
 
         List<HotelEntity> hotelEntities = List.of(hotel1, hotel2);
 
@@ -89,31 +71,16 @@ public class HotelServiceImplTest {
     @Test
     public void getHotelById_success() {
         Long id = 1L;
-        HotelEntity hotel = new HotelEntity();
-        hotel.setId(id);
-        hotel.setName("Test Hotel");
-
-        AddressEntity address = new AddressEntity();
-        address.setHouseNumber(123);
-        address.setCity("Minsk");
-        address.setCountry("Belarus");
-        hotel.setAddress(address);
-
-        ContactsEntity contacts = new ContactsEntity();
-        contacts.setPhone("+375291112233");
-        contacts.setEmail("test@example.com");
-        hotel.setContacts(contacts);
-
-        ArrivalTimeEntity arrivalTime = new ArrivalTimeEntity();
-        arrivalTime.setCheckIn(LocalTime.of(14, 0));
-        arrivalTime.setCheckOut(LocalTime.of(12, 0));
-        hotel.setArrivalTime(arrivalTime);
-
-        AmenityEntity wifi = new AmenityEntity();
-        wifi.setName("WiFi");
-        AmenityEntity breakfast = new AmenityEntity();
-        breakfast.setName("Breakfast");
-        hotel.setAmenities(List.of(wifi, breakfast));
+        HotelEntity hotel = TestDataHelper.createFullHotelInfo(id,
+                "Test Hotel",
+                123,
+                "Minsk",
+                "Belarus",
+                "+375291112233",
+                "test@example.com",
+                LocalTime.of(14, 0),
+                LocalTime.of(12, 0),
+                List.of("WiFi", "Breakfast"));
 
         when(hotelRepository.findById(id)).thenReturn(Optional.of(hotel));
 
@@ -146,20 +113,14 @@ public class HotelServiceImplTest {
         String country = "Belarus";
         List<String> amenities = List.of("WiFi", "Pool");
 
-        HotelEntity hotel = new HotelEntity();
-        hotel.setId(1L);
-        hotel.setName("Hotel Lux");
-
-        AddressEntity address = new AddressEntity();
-        address.setHouseNumber(15);
-        address.setCity(city);
-        address.setCountry(country);
-        hotel.setAddress(address);
-
-        ContactsEntity contacts = new ContactsEntity();
-        contacts.setPhone("+375291234567");
-        contacts.setEmail("lux@example.com");
-        hotel.setContacts(contacts);
+        HotelEntity hotel = TestDataHelper.createHotelEntity(1L,
+                "Hotel Lux",
+                15,
+                "Minsk",
+                "Belarus",
+                "+375291234567",
+                "lux@example.com",
+                null);
 
         when(hotelRepository.findAll(Mockito.<Specification<HotelEntity>>any()))
                 .thenReturn(List.of(hotel));
@@ -209,20 +170,13 @@ public class HotelServiceImplTest {
         address.setCountry("Belarus");
         request.setAddress(address);
 
-        HotelEntity savedHotel = new HotelEntity();
-        savedHotel.setId(1L);
-        savedHotel.setName("New Hotel");
-
-        AddressEntity savedAddress = new AddressEntity();
-        savedAddress.setHouseNumber(12);
-        savedAddress.setCity("Minsk");
-        savedAddress.setCountry("Belarus");
-        savedHotel.setAddress(savedAddress);
-
-        ContactsEntity savedContacts = new ContactsEntity();
-        savedContacts.setPhone("+375291122334");
-        savedContacts.setEmail("new@hotel.com");
-        savedHotel.setContacts(savedContacts);
+        HotelEntity savedHotel = TestDataHelper.createSavedHotelEntity(1L,
+                "New Hotel",
+                12,
+                "Minsk",
+                "Belarus",
+                "+375291122334",
+                "new@hotel.com");
 
         when(hotelRepository.save(any(HotelEntity.class))).thenReturn(savedHotel);
 
