@@ -21,6 +21,5 @@ public class AddressEntity {
     private String postCode;
 
     @OneToOne(mappedBy = "address")
-    @Column(name = "hotel_id", nullable = false)
     private HotelEntity hotelId;
 }

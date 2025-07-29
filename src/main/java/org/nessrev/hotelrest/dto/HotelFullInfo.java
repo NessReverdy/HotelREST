@@ -1,10 +1,12 @@
 package org.nessrev.hotelrest.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -47,7 +49,9 @@ public class HotelFullInfo {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ArrivalTimeDto {
-        private String checkIn;
-        private String checkOut;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+        private LocalTime checkIn;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+        private LocalTime checkOut;
     }
 }

@@ -1,8 +1,11 @@
 package org.nessrev.hotelrest.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalTime;
 
 @Entity(name = "arrival_time")
 @Getter
@@ -12,12 +15,14 @@ public class ArrivalTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Column(name = "check_in")
-    private String checkIn;
+    private LocalTime checkIn;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Column(name = "check_out")
-    private String checkOut;
+    private LocalTime checkOut;
 
     @OneToOne(mappedBy = "arrivalTime")
-    @Column(name = "hotel_id", nullable = false)
     private HotelEntity hotelId;
 }

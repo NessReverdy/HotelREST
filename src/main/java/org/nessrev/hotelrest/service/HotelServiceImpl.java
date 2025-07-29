@@ -43,6 +43,7 @@ public class HotelServiceImpl implements HotelService {
                 .map(HotelMapper::toShortInfo)
                 .toList();
     }
+
     @Override
     public HotelFullInfo getHotelById(Long id) {
         HotelEntity hotel = hotelRepository.findById(id)

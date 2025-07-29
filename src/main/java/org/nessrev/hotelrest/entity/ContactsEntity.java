@@ -16,6 +16,5 @@ public class ContactsEntity {
     private String email;
 
     @OneToOne(mappedBy = "contacts")
-    @Column(name = "hotel_id", nullable = false)
     private HotelEntity hotelId;
 }
