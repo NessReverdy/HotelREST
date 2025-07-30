@@ -20,6 +20,7 @@ public class AddressEntity {
     @Column(name = "post_code")
     private String postCode;
 
-    @OneToOne(mappedBy = "address")
-    private HotelEntity hotelId;
+    @OneToOne
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private HotelEntity hotel;
 }

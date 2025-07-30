@@ -21,16 +21,13 @@ public class HotelEntity {
     private String description;
     private String brand;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "hotel_id")
+    @OneToOne(mappedBy = "hotel", cascade = CascadeType.ALL)
     private AddressEntity address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "hotel_id")
+    @OneToOne(mappedBy = "hotel", cascade = CascadeType.ALL)
     private ContactsEntity contacts;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "hotel_id")
+    @OneToOne(mappedBy = "hotel", cascade = CascadeType.ALL)
     private ArrivalTimeEntity arrivalTime;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -40,4 +37,5 @@ public class HotelEntity {
             inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
     private List<AmenityEntity> amenities;
+
 }

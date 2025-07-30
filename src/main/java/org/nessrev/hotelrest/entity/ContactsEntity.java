@@ -15,6 +15,7 @@ public class ContactsEntity {
     private String phone;
     private String email;
 
-    @OneToOne(mappedBy = "contacts")
-    private HotelEntity hotelId;
+    @OneToOne
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private HotelEntity hotel;
 }

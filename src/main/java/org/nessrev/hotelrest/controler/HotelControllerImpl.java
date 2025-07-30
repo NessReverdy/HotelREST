@@ -5,12 +5,14 @@ import org.nessrev.hotelrest.dto.HotelFullInfo;
 import org.nessrev.hotelrest.dto.HotelShortInfo;
 import org.nessrev.hotelrest.service.HotelService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/property-view")
 public class HotelControllerImpl implements HotelController {
     private final HotelService hotelService;
 

@@ -62,9 +62,25 @@ public class HotelMapper {
         hotel.setName(request.getName());
         hotel.setDescription(request.getDescription());
         hotel.setBrand(request.getBrand());
-        hotel.setAddress(toAddressEntity(request.getAddress()));
-        hotel.setContacts(toContactsEntity(request.getContacts()));
-        hotel.setArrivalTime(toArrivalTimeEntity(request.getArrivalTime()));
+
+        AddressEntity address = toAddressEntity(request.getAddress());
+        if (address != null) {
+            address.setHotel(hotel);
+            hotel.setAddress(address);
+        }
+
+        ContactsEntity contacts = toContactsEntity(request.getContacts());
+        if (contacts != null) {
+            contacts.setHotel(hotel);
+            hotel.setContacts(contacts);
+        }
+
+        ArrivalTimeEntity arrivalTime = toArrivalTimeEntity(request.getArrivalTime());
+        if (arrivalTime != null) {
+            arrivalTime.setHotel(hotel);
+            hotel.setArrivalTime(arrivalTime);
+        }
+
         return hotel;
     }
 

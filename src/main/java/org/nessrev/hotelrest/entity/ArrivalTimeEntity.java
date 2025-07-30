@@ -23,6 +23,7 @@ public class ArrivalTimeEntity {
     @Column(name = "check_out")
     private LocalTime checkOut;
 
-    @OneToOne(mappedBy = "arrivalTime")
-    private HotelEntity hotelId;
+    @OneToOne
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private HotelEntity hotel;
 }
